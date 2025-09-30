@@ -1,0 +1,12 @@
+ <swiper-container #SwiperBackdrop init="false">
+
+    @for(peli of peliculas; track $index){
+  <swiper-slide>
+<ion-card>
+  <ion-img [src]="peli.backdrop_path | imagen" ></ion-img>
+</ion-card>
+
+  </swiper-slide>
+}
+
+</swiper-container>

@@ -1,17 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-grid>
+  <ion-row>
+    <ion-col ><h2>Películas nuevas</h2></ion-col>
+  </ion-row>
+</ion-grid>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<app-slider-pelis-backdrop [peliculas]="peliculasRecientes"></app-slider-pelis-backdrop>
+<ion-grid fixed>
+  <ion-row>
+    <ion-col><h2>Cartelera</h2></ion-col>
+  </ion-row>
+</ion-grid>
+
+
+<app-slider-poster [peliculas]="pelisCartelera"></app-slider-poster>
+<ion-grid fixed>
+  <ion-row>
+    <ion-col><h2>Populares</h2></ion-col>
+  </ion-row>
+</ion-grid>
+
+<app-slider-poster [peliculas]="peliculasPopulares" [cargarMas] ="true" (cargarData)="cargarPopulares()"></app-slider-poster>
+
 </ion-content>
