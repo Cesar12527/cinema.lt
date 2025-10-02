@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Input, OnInit, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, Input, OnInit, viewChild, ViewChild } from '@angular/core';
 import { IMovies } from 'src/app/models/movies.models';
 import { ImagenPipe } from 'src/app/pipes/imagen-pipe';
 import { SwiperOptions } from 'swiper/types';
+import {ModalController} from '@ionic/angular/standalone';
+import { DetalleComponent } from '../detalle/detalle.component';
 
 @Component({
   selector: 'app-slider-pelis-backdrop',
@@ -14,6 +16,8 @@ import { SwiperOptions } from 'swiper/types';
 export class SliderPelisBackdropComponent  implements AfterViewInit {
   @Input() peliculas : IMovies[] = [];
   @ViewChild('SwiperBackdrop', {static:false}) swiperContrainer!: ElementRef;
+  private modalCtrl = inject(ModalController);
+
   private sliderOpts: SwiperOptions = {
     slidesPerView: 1.1,
     breakpoints: {
@@ -30,6 +34,17 @@ export class SliderPelisBackdropComponent  implements AfterViewInit {
     const sliderElem = this.swiperContrainer.nativeElement;
     Object.assign(sliderElem!, this.sliderOpts);
     sliderElem!.initialize();
+  }
+
+  async verDetallePeli(idPeli : number){
+    console.log("ID :" + idPeli);
+    const modal = await this.modalCtrl.create({
+      component: DetalleComponent,
+      componentProps: {
+        'id' : idPeli
+      }
+    });
+     modal.present();
   }
 
 }

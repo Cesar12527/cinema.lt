@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IMovies } from 'src/app/models/movies.models';
 import { ImagenPipe } from 'src/app/pipes/imagen-pipe';
 import { SwiperOptions } from 'swiper/types';
+import { ModalController } from '@ionic/angular/standalone';
+import { DetalleComponent } from '../detalle/detalle.component';
 
 @Component({
   selector: 'app-slider-poster',
@@ -16,6 +18,7 @@ export class SliderPosterComponent  implements AfterViewInit {
   @Input() cargarMas: boolean = false;
   @Output() cargarData = new EventEmitter();
   @ViewChild('swiperPoster', { static: false }) swiperPoster: any;
+   private modalCtrl = inject(ModalController);
   private sliderOpts: SwiperOptions = {
     slidesPerView: 3.1,
     spaceBetween: -10,
@@ -45,5 +48,16 @@ export class SliderPosterComponent  implements AfterViewInit {
     Object.assign(sliderElem!, this.sliderOpts);
     sliderElem!.initialize();
   }
+
+  async verDetallePeli(idPeli : number){
+      console.log("ID :" + idPeli);
+      const modal = await this.modalCtrl.create({
+        component: DetalleComponent,
+        componentProps: {
+          'id' : idPeli
+        }
+      });
+       modal.present();
+    }
 
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ICarteleraTMDB, IResponsMoviesTMDB } from '../models/movies.models';
+import { ICarteleraTMDB, IPeliculaCreditos, IPeliculaDetalle, IResponsMoviesTMDB } from '../models/movies.models';
 import { environment } from 'src/environments/environment.prod';
 
 
@@ -40,5 +40,18 @@ export class Movie {
     this.popularPage++;
     return this.ejecutarQuery<IResponsMoviesTMDB>("/movie/popular?page="+this.popularPage);
   }
+
+  buscarPeliculas(texto: string){
+    return this.ejecutarQuery<IResponsMoviesTMDB>("/search/movie?query="+texto);
+  }
+
+  getDetallePelicula(id: number){
+   return this.ejecutarQuery<IPeliculaDetalle>(`/movie/${id}?1`);
+  }
+
+  getPeliculaCreditos(id: number){
+  return this.ejecutarQuery<IPeliculaCreditos>(`/movie/${id}/credits?1`);
+  }
+
 
 }

@@ -6,7 +6,7 @@ const URL = environment.imgPath;
 })
 export class ImagenPipe implements PipeTransform {
 
-  transform(img: string | null, size: string='w500'): string {
+  transform(img: string | null | undefined, size: string='w500'): string {
    if(!img) return 'no-image'
 
    const imgUrl = URL + size + img;
